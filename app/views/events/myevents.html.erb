@@ -1,0 +1,39 @@
+
+  <div class="card bg text-white" id = "cardHeader">
+    <%= image_tag("myevents.png", class:"card-img", style:"width:500px;height:281px;", alt: 'Image') %>
+    <div class="card-img-overlay">
+      <h1 class="card-title">My Events</h1>
+      <p class="card-text">Here are all the events you created. <br><br>
+        You can manage them by updating it, deleting it or create new events!</p>
+      <div class="new-event-link">
+        <%= link_to 'Create An Event', new_event_path, class:"btn btn-light btn-lg" %>
+      </div>
+    </div>
+  </div>
+
+
+<div class="container">
+  <div class="grid">
+    <div class="row g-row-cols-4">
+      <% @myevents.order(time: :asc).joins(:user).each do |event| %>
+          <div class="col">
+              <div class="card" id="cardHover" style = "width: 16rem;">
+                <%= link_to(image_tag(event.image.thumb.url, class:"card-img-top", alt: 'Image'), event, target: '_blank') %>
+                <div class="card-body">
+                  <%= link_to(tag.h5(event.title, class:"card-title", id:"eventTitle"), event) %>
+                  <%= tag.p event.description, class:"card-text", id:"eventDescription" %>
+                  <%= tag.p event.address, class:"card-text", id:"eventAddress" %>
+                  <%= tag.p event.time.strftime("%-d %B at %l:%M %P"), class:"card-text", id:"eventTime" %>
+                </div>
+                <div class="card-footer bg-transparent border-light">
+                  <div class = "events-card-links">
+                    <%= link_to 'Edit', edit_event_path(event), class:"btn btn-dark btn-sm" %>
+                    <%= link_to 'Delete', event, class:"btn btn-dark btn-sm", method: :delete, data: { confirm: 'Are you sure?' } %>
+                  </div>
+                </div>
+              </div>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>

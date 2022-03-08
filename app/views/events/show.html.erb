@@ -1,0 +1,61 @@
+
+
+
+
+  <div class ="image_wrapper">
+    <%= image_tag(@event.image.url, alt: 'Image') %>
+  </div>
+
+<div class="container">
+  <div class="grid">
+    <div class="row">
+        <div class="col-12 col-sm-8">
+          <p>
+            <strong><h1> About : </h1></strong>
+            <%= @event.description %>
+          </p>
+        </div>
+        <div class="col-12 col-sm-4">
+          <div class="card" id="eventRightBox">
+              <% if @attending %>
+                <%= button_to 'Cancel ', unattend_event_path(@event), class:"btn btn-danger btn-lg" %>
+              <% else %>
+                <%= button_to 'Attend Now', attendee_event_path(@event), class:"btn btn-success btn-lg" %>
+              <% end %>
+            <p>
+              <strong><h5>Where :</h5></strong><br>
+              <%= @event.address %>
+            </p>
+            <p>
+              <strong><h5>When :</h5></strong> <br>
+              <%= @event.time.strftime("%-d %B at %l:%M %P") %>
+            </p>
+
+            <p>
+              <strong><h5>Attendees:</h5></strong> <br>
+              <% @attendees.each do |attendee| %>
+                <% name = attendee.user.name %>
+                  <% if attendee == @attendees.last %>
+                    <%= name %>
+                  <% else %>
+                    <%= name + ', ' %><br>
+                  <% end %>
+              <% end %>
+            </p>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="card-footer bg-transparent border-light">
+    <center> <%= render "mapbox_single" %> <br>
+    <div class = "events-card-links">
+      <% if can? :crud, @event %>
+        <%= link_to 'Edit', edit_event_path(@event), class:"btn btn-dark" %> |
+        <%= link_to 'Back', events_path, class:"btn btn-dark" %>
+      <% else %>
+        <%= link_to 'Back', events_path, class:"btn btn-dark" %>
+      <% end %>
+    </div>
+    </center>
+  </div>
+</div>

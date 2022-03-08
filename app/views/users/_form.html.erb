@@ -1,0 +1,39 @@
+<%= bootstrap_form_with(model: user, layout: :inline, id:"formSample", label_col: "col-sm-2", control_col: "col-sm-10") do |form| %>
+<div class="card p-3 bg-light">
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+        <% user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.check_box :admin %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :encrypted_password %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :reset_password_token %>
+  </div>
+
+  <div class="actions">
+    <center><%= form.submit class:"btn btn-dark" %></center>
+  </div>
+  </div>
+<% end %>

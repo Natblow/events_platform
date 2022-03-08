@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>A new user will attend your <%= @attendee.event.id %> event!</p>
+    <p>
+    Event details<br>
+    --------------------------
+    </p>
+    <p>Id: <%= @attendee.event.id %></p>
+    <p>Address: <%= @attendee.event.address %></p>
+    <p>
+    Description:<br>
+    ----------
+    </p>
+    <p><%= @attendee.event.description %></p>
+  </body>
+</html>
