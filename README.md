@@ -6,7 +6,7 @@ You may have used some kind of event planning application on the internet, whet
 
 ## App Functionalities :
 
-#### Users Management
+### Users Management
 
 -  The app have user accounts with password-protected logins. It is using the **Devise gem** to manage these accounts.
 
@@ -14,7 +14,7 @@ You may have used some kind of event planning application on the internet, whet
 
 -  Passwords are stored encrypted in the database.
 
-###### 3 Levels of permissions
+#### 3 Levels of permissions
 
 -  User accounts have three levels of permissions. It is using the **CanCanCan gem** manage permissions.
 
@@ -44,9 +44,9 @@ end
 
 -  Event creators have regular user permissions, plus the ability to manage events they created. They are actually just regular users who have created an event.
 
-#### Events
+### Events
 
-##### All Events have the following fields and associated resources :
+#### All Events have the following fields and associated resources :
 
 - a creator_id specifying the User record that created the event.
 
@@ -103,7 +103,7 @@ end
 
 - For the event's creator, it also show an edit button.
 
-#### RSVPs
+### RSVPs
 
 - Any user is be able to RSVP to an event by clicking on the "Attend Now" button on an event page while logged in.
 
