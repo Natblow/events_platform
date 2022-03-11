@@ -10,7 +10,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   # def create
-  #   super
+  #     super
   # end
 
   # DELETE /resource/sign_out
@@ -18,13 +18,27 @@ class Users::SessionsController < Devise::SessionsController
   #   super
   # end
 
-  # protected
-  #
-  # def after_sign_in_path_for(resource)
-  #  previous_path = session[:previous_url]
-  #  session[:previous_url] = nil
-  #  previous_path || public_root_path
-  # end
+  protected
+
+  def after_sign_in_path_for(resource_or_scope)
+    if session[:creating_attendee]
+      redirect_to_event
+    else
+      super
+    end
+  end
+
+  def redirect_to_event
+    previous_url = session[:previous_url]
+    clear_sessions_and_set_new_one
+    previous_url #redirect
+  end
+
+  def clear_sessions_and_set_new_one
+    session[:creating_attendee] = nil #clear session
+    session[:previous_url] = nil #clear session
+    session[:login_successful_for_attend] = true
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_in_params

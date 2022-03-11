@@ -1,5 +1,3 @@
-# require 'event_reminder_task'
-
 namespace :recurring do
   task init: :environment do
     EventReminderTask.schedule!

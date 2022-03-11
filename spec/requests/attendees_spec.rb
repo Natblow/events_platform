@@ -16,9 +16,6 @@ RSpec.describe "/attendees", type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Attendee. As you add validations to Attendee, be sure to
   # adjust the attributes here as well.
-  # before do
-  #   sign_in_as_a_valid_user
-  # end
   current_user = User.first_or_create!(id: '1',
                                       email: 'nate@example.com',
                                       password: 'password',
@@ -85,10 +82,15 @@ RSpec.describe "/attendees", type: :request do
       it "redirects to the events page" do
         attendee = Attendee.new(valid_attributes)
         current_user = attendee.user
-        event = event
         get event_url(event), params: { event: event_attributes, user: user_attributes }
         expect(response).to be_successful
-        # .to redirect_to(events_url(attendee.event,Attendee.last))
+      end
+    end
+
+    context "with valid parameters but not signed_in" do
+      it "redirects to sign in page" do
+          get user_session_path
+          expect(response).to be_successful
       end
     end
 
@@ -124,7 +126,6 @@ RSpec.describe "/attendees", type: :request do
       attendee = Attendee.create! valid_attributes
       delete event_url(attendee)
       expect(response.status).to eq(302)
-      # expect(response).to redirect_to(event_url(attendee.event))
     end
   end
 end

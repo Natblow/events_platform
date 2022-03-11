@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   load_and_authorize_resource except: :myevents
-  # before_action :store_user_location!, if: :storable_location?
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :attendee?, only: :show
 
   # GET /events or /events.json
   def index
@@ -25,6 +25,7 @@ class EventsController < ApplicationController
 
   # GET /events/1 or /events/1.json
   def show
+    session[:previous_url] = request.fullpath #url for user to come back after signing in
     @single_event = Event.where(id: params[:id])
     @attending = Attendee.find_by(event_id: params[:id] , user_id: current_user)
     @attendees = Attendee.joins(:user).where(event_id: params[:id])
@@ -98,14 +99,12 @@ class EventsController < ApplicationController
     #   @event = Event.find(params[:id])
     # end
 
-    # def storable_location?
-    #   request.get? && is_navigational_format? && !devise_controller? && !request.xhr?
-    # end
-    #
-    # def store_user_location!
-    #   # :user is the scope we are authenticating
-    #   store_location_for(:user, request.fullpath)
-    # end
+    def attendee?
+      if session[:login_successful_for_attend]
+        session[:login_successful_for_attend] = nil
+        repost(attendee_event_path, options: {authenticity_token: :auto})
+      end
+    end
 
     # Only allow a list of trusted parameters through.
     def event_params

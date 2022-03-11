@@ -1,15 +1,12 @@
 class AttendeesController < ApplicationController
-  # before_action :authenticate_user!
   before_action :set_attendee, only: %i[ destroy ]
+  before_action :already_attending?, only: %i[ create ]
 
-  # POST /events/1/attendees or /attendees.json
+  # POST /events/1/attendees or /events/1/attendees.json
   def create
-    if current_user.nil?
-     # Store the form data in the session so we can retrieve it after login
-     session[:attendee] = params
-     # Redirect the user to register/login
+    if !current_user
+     session[:creating_attendee] = true
      redirect_to user_session_path
-
    else
       @attendee = current_user.attendees.build({event_id: params[:id]})
 
@@ -27,11 +24,11 @@ class AttendeesController < ApplicationController
     end
   end
 
-  # DELETE /attendees/1 or /attendees/1.json
+  # DELETE events/1/attendees/1 or events/1/attendees/1.json
   def destroy
     @attendee.destroy
     respond_to do |format|
-      format.html { redirect_to @attendee.event, notice: "Attendee was successfully destroyed." }
+      format.html { redirect_to @attendee.event, notice: "You unregistered for the event successfully" }
       format.json { head :no_content }
     end
   end
@@ -42,25 +39,13 @@ class AttendeesController < ApplicationController
       @attendee = Attendee.find_by(event_id: params[:id])
     end
 
-    def after_sign_in_path_for(resource_or_scope)
-      if session[:attendee].present?
-
-        # save list
-        @attendee = current_user.attendees.create(session[:attendee]["attendee"])
-
-        # clear session
-        session[:attendee] = nil
-
-        #redirect
-        flash[:notice] = "Sweet, logged in. Nice list, btw :)"
-        events_path(@attendee.event)
-        # stored_location_for(resource_or_scope)
-
-    else
-      #if there is not temp list in the session proceed as normal
-        super
+    def already_attending?
+      if current_user != nil && Attendee.exists?(user_id: current_user.id, event_id: params[:id])
+        respond_to do |format|
+          format.html { redirect_to event_path(params[:id]), alert: "You are already registered for the event!" }
+          format.json { render :show, status: :created, location: @attendee }
+        end
       end
-      # stored_location_for(resource_or_scope) || super
     end
 
     # Only allow a list of trusted parameters through.

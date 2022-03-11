@@ -46,7 +46,7 @@
 
 - [x] Any user should be able to RSVP to an event by clicking on an RSVP button on an event page while logged in.
 
-- [ ] Clicking on an RSVP button while not logged in should redirect the user to the login page, then create the RSVP if the login was successful, and redirect back to the event page after that.
+- [x] Clicking on an RSVP button while not logged in should redirect the user to the login page, then create the RSVP if the login was successful, and redirect back to the event page after that.
 
 - [x] When an RSVP is created, the event creator should be notified.
 

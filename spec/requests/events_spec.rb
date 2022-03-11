@@ -21,12 +21,6 @@ RSpec.describe "/events", type: :request do
     @current_user = create(:user)
     login_as(@current_user)
   end
-  # @current_user = User.first_or_create!(id: '56',
-  #                                     email: 'nate@example.com',
-  #                                     password: 'password',
-  #                                     password_confirmation: 'password',
-  #                                     confirmation_token: 'ABCDE1234',
-  #                                     admin: true)
 
   let(:valid_attributes) do
     {
@@ -66,7 +60,6 @@ RSpec.describe "/events", type: :request do
 
   describe "GET /index" do
     it "renders a successful response" do
-      # login(@current_user)
       event = Event.new(valid_attributes)
       event.user = @current_user
       event.save
@@ -77,6 +70,17 @@ RSpec.describe "/events", type: :request do
   end
 
   describe "GET /show" do
+    it "renders a successful response" do
+      event = Event.new(valid_attributes)
+      event.user = @current_user
+      event.save
+      get event_url(event)
+      follow_redirect!
+      expect(response).to be_successful
+    end
+  end
+
+  describe "GET /myevents" do
     it "renders a successful response" do
       event = Event.new(valid_attributes)
       event.user = @current_user
@@ -121,7 +125,6 @@ RSpec.describe "/events", type: :request do
         event.save
         post events_url, params: { event: valid_attributes }
         expect(response.status).to eq(302)
-        # expect(response).to redirect_to(events_path)
       end
     end
 
@@ -167,7 +170,6 @@ RSpec.describe "/events", type: :request do
         patch event_url(event), params: { event: new_attributes }
         event.reload
         expect(response.status).to eq(302)
-        # expect(response).to redirect_to(event_url(event))
       end
     end
 
@@ -194,7 +196,6 @@ RSpec.describe "/events", type: :request do
       event = Event.create! valid_attributes
       delete event_url(event)
       expect(response.status).to eq(302)
-      # expect(response).to redirect_to(events_url)
     end
   end
 end
