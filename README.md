@@ -202,7 +202,7 @@ end
   end
 ```
 
-##### Tests
+#### Tests
 
 For testing, it is using Rspec.
 
