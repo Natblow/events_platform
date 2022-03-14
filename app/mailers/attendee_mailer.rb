@@ -15,11 +15,9 @@ class AttendeeMailer < ApplicationMailer
     end
   end
 
-  private
-
   def self.send_event_reminder(event)
     event.attendees.each do |attendee|
-        event_reminder(attendee.user.email, event).deliver_now
+        event_reminder(attendee.user.email, event).deliver
     end
   end
 

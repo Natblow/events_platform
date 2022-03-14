@@ -23,7 +23,7 @@
                 <%= tag.p event.address, class:"card-text", id:"eventAddress" %>
                 <%= tag.p event.time.strftime("%-d %B at %l:%M %P"), class:"card-text", id:"eventTime" %>
               </div>
-              <% if can? :manage, User %>
+              <% if can? :crud, event %>
                 <div class="card-footer bg-transparent border-light">
                   <div class = "events-card-links">
                     <%= link_to 'Edit', edit_event_path(event), class:"btn btn-dark btn-sm" %>
