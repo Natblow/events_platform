@@ -24,6 +24,7 @@ module EventsPlatform
     #
     config.time_zone = "Eastern Time (US & Canada)"
     config.active_job.queue_adapter = :delayed_job
+    config.require_master_key = true
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
