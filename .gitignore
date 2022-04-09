@@ -49,3 +49,6 @@ yarn-debug.log*
 .ebextensions/*
 !.ebextensions/*.cfg.yml
 !.ebextensions/*.global.yml
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

@@ -12,7 +12,6 @@ gem 'puma', '~> 5.6', '>= 5.6.2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 5.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -35,6 +34,7 @@ gem 'delayed_job_active_record', '~> 4.1', '>= 4.1.7'
 gem 'delayed_job_recurring', '~> 0.3.9'
 gem 'repost', '~> 0.3.8'
 gem 'sassc', '~> 2.4'
+gem 'jsbundling-rails'
 gem 'bundler', '~> 2.3', '>= 2.3.10'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
