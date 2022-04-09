@@ -35,6 +35,7 @@ gem 'delayed_job_active_record', '~> 4.1', '>= 4.1.7'
 gem 'delayed_job_recurring', '~> 0.3.9'
 gem 'repost', '~> 0.3.8'
 gem 'sassc', '~> 2.4'
+gem 'bundler', '~> 2.3', '>= 2.3.10'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
